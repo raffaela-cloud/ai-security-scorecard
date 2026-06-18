@@ -482,7 +482,7 @@ function Scorecard() {
             Built by Virtue AI.
           </p>
           <button className="sc-btn" onClick={() => setPhase("survey")}>
-            See my grade <ArrowRight size={18} />
+            Discover where I'm vulnerable <ArrowRight size={18} />
           </button>
           <p className="sc-muted" style={{ fontSize: 13, marginTop: 18 }}>
             No sign-up to begin. You'll see your grade before anything else.
