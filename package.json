@@ -1,0 +1,13 @@
+{
+  "name": "ai-security-scorecard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "5-question AI security self-assessment scorecard (single self-contained page).",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0"
+  }
+}
