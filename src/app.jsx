@@ -358,6 +358,10 @@ function temperature(intent) {
   return "Cool";
 }
 
+// Legal disclaimer — single source of truth, shown on the landing page and in
+// the footer on subsequent pages.
+const DISCLAIMER = "This scorecard is provided for general informational and educational purposes only. It does not constitute an official security diagnosis, audit, assessment, certification, or professional advice of any kind. Any grades, scores, and benchmark figures are illustrative and should not be relied upon for any security, compliance, or business decision. Virtue AI makes no representation, warranty, or guarantee, express or implied, as to the accuracy or completeness of these results or any security outcome, and disclaims all liability arising from their use to the fullest extent permitted by law.";
+
 /* ------------------------------------------------------------------ */
 /*  Radar (hand-rolled SVG, no chart library)                         */
 /* ------------------------------------------------------------------ */
@@ -466,7 +470,7 @@ function Scorecard() {
   /* ---------------------------- INTRO --------------------------- */
   if (phase === "intro") {
     return (
-      <Shell>
+      <Shell footerNote={false}>
         <div className="sc-fade" style={{ maxWidth: 620, margin: "0 auto", paddingTop: 40 }}>
           <p className="sc-eyebrow" style={{ marginBottom: 22 }}>By Virtue AI</p>
           <h1 className="sc-display" style={{ fontSize: "clamp(34px,6vw,52px)", lineHeight: 1.08, margin: "0 0 20px", fontWeight: 700 }}>
@@ -486,6 +490,9 @@ function Scorecard() {
           </button>
           <p className="sc-muted" style={{ fontSize: 13, marginTop: 18 }}>
             No sign-up to begin. You'll see your grade before anything else.
+          </p>
+          <p className="sc-muted" style={{ fontSize: 11, lineHeight: 1.5, marginTop: 30, maxWidth: 560 }}>
+            {DISCLAIMER}
           </p>
         </div>
       </Shell>
@@ -722,7 +729,7 @@ function Logo() {
   );
 }
 
-function Shell({ children, progress }) {
+function Shell({ children, progress, footerNote = true }) {
   return (
     <div className="sc-root">
       <style>{CSS}</style>
@@ -738,15 +745,8 @@ function Shell({ children, progress }) {
       <div style={{ padding: "32px 24px 40px" }}>{children}</div>
       <footer style={{ borderTop: "1px solid var(--line)", padding: "18px 24px 40px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto", fontSize: 12, lineHeight: 1.6, color: "var(--muted)" }}>
-          This scorecard is provided for general informational and educational purposes only. It is an automated,
-          indicative self-assessment generated solely from the answers you provide, and does not constitute an
-          official security diagnosis, audit, assessment, certification, or professional advice of any kind. It
-          creates no consulting, advisory, or other professional relationship. Any grades, scores, and benchmark
-          figures are illustrative and should not be relied upon for any security, compliance, or business decision.
-          Virtue AI makes no representation, warranty, or guarantee, express or implied, as to the accuracy or
-          completeness of these results or any security outcome, and disclaims all liability arising from their use
-          to the fullest extent permitted by law. © Virtue AI.{" "}
-          <a href="#privacy" style={{ color: "var(--accent)" }}>Privacy Policy</a>.
+          {footerNote && <span>{DISCLAIMER}{" "}</span>}
+          © Virtue AI. <a href="#privacy" style={{ color: "var(--accent)" }}>Privacy Policy</a>.
         </div>
       </footer>
     </div>
