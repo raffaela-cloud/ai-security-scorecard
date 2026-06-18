@@ -910,6 +910,10 @@ function temperature(intent) {
   return "Cool";
 }
 
+// Legal disclaimer — single source of truth, shown on the landing page and in
+// the footer on subsequent pages.
+const DISCLAIMER = "This scorecard is provided for general informational and educational purposes only. It does not constitute an official security diagnosis, audit, assessment, certification, or professional advice of any kind. Any grades, scores, and benchmark figures are illustrative and should not be relied upon for any security, compliance, or business decision. Virtue AI makes no representation, warranty, or guarantee, express or implied, as to the accuracy or completeness of these results or any security outcome, and disclaims all liability arising from their use to the fullest extent permitted by law.";
+
 /* ------------------------------------------------------------------ */
 /*  Radar (hand-rolled SVG, no chart library)                         */
 /* ------------------------------------------------------------------ */
@@ -1044,7 +1048,9 @@ function Scorecard() {
 
   /* ---------------------------- INTRO --------------------------- */
   if (phase === "intro") {
-    return /*#__PURE__*/React.createElement(Shell, null, /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/React.createElement(Shell, {
+      footerNote: false
+    }, /*#__PURE__*/React.createElement("div", {
       className: "sc-fade",
       style: {
         maxWidth: 620,
@@ -1096,7 +1102,15 @@ function Scorecard() {
         fontSize: 13,
         marginTop: 18
       }
-    }, "No sign-up to begin. You'll see your grade before anything else.")));
+    }, "No sign-up to begin. You'll see your grade before anything else."), /*#__PURE__*/React.createElement("p", {
+      className: "sc-muted",
+      style: {
+        fontSize: 11,
+        lineHeight: 1.5,
+        marginTop: 30,
+        maxWidth: 560
+      }
+    }, DISCLAIMER)));
   }
 
   /* --------------------------- SURVEY --------------------------- */
@@ -1608,7 +1622,8 @@ function Logo() {
 }
 function Shell({
   children,
-  progress
+  progress,
+  footerNote = true
 }) {
   return /*#__PURE__*/React.createElement("div", {
     className: "sc-root"
@@ -1654,7 +1669,7 @@ function Shell({
       lineHeight: 1.6,
       color: "var(--muted)"
     }
-  }, "This scorecard is provided for general informational and educational purposes only. It is an automated, indicative self-assessment generated solely from the answers you provide, and does not constitute an official security diagnosis, audit, assessment, certification, or professional advice of any kind. It creates no consulting, advisory, or other professional relationship. Any grades, scores, and benchmark figures are illustrative and should not be relied upon for any security, compliance, or business decision. Virtue AI makes no representation, warranty, or guarantee, express or implied, as to the accuracy or completeness of these results or any security outcome, and disclaims all liability arising from their use to the fullest extent permitted by law. \xA9 Virtue AI.", " ", /*#__PURE__*/React.createElement("a", {
+  }, footerNote && /*#__PURE__*/React.createElement("span", null, DISCLAIMER, " "), "\xA9 Virtue AI. ", /*#__PURE__*/React.createElement("a", {
     href: "#privacy",
     style: {
       color: "var(--accent)"
