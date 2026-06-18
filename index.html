@@ -19,7 +19,7 @@
 <div id="root"></div>
 
 <script type="text/babel">
-const { useState, useEffect, useMemo } = React;
+const { useState, useEffect, useMemo, useRef } = React;
 
 /* ------------------------------------------------------------------ */
 /*  Tokens (locked brand)                                             */
@@ -382,6 +382,7 @@ function Scorecard() {
   const [email, setEmail] = useState("");
   const [showHandoff, setShowHandoff] = useState(false);
   const [animScore, setAnimScore] = useState(0);
+  const advanceTimer = useRef(null);
 
   const result = useMemo(
     () => (phase === "result" ? computeScores(answers) : null),
@@ -408,7 +409,12 @@ function Scorecard() {
 
   function pickSingle(id, v) {
     setAnswers((a) => ({ ...a, [id]: v }));
-    setTimeout(() => advance(), 220);
+    // Debounce the auto-advance: a second tap within the window (e.g. the user
+    // changing their answer) replaces the pending advance instead of queueing a
+    // second one. Without this, two advances fire and qi jumps by two — skipping
+    // a question, or running off the end of QUESTIONS and crashing the app.
+    clearTimeout(advanceTimer.current);
+    advanceTimer.current = setTimeout(() => advance(), 220);
   }
   function toggleMulti(id, v) {
     setAnswers((a) => {
@@ -420,10 +426,14 @@ function Scorecard() {
     });
   }
   function advance() {
-    if (qi < total - 1) setQi((i) => i + 1);
-    else setPhase("result");
+    setQi((i) => {
+      if (i < total - 1) return i + 1;
+      setPhase("result");
+      return i;
+    });
   }
   function back() {
+    clearTimeout(advanceTimer.current);
     if (qi === 0) setPhase("intro");
     else setQi((i) => i - 1);
   }
