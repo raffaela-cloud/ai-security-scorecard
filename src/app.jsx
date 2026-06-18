@@ -473,10 +473,10 @@ function Scorecard() {
             2-Minute AI Security Scorecard
           </h1>
           <p className="sc-display" style={{ fontSize: "clamp(20px,3vw,25px)", lineHeight: 1.3, margin: "0 0 16px", maxWidth: 560, fontWeight: 400 }}>
-            As enterprises embrace AI, they have to manage the risk that comes with it. Take our 2-minute scorecard to benchmark your posture and find your highest-priority exposures.
+            Benchmark your AI risk surface and find your highest-priority exposures.
           </p>
           <p style={{ fontSize: 18, margin: "0 0 14px", maxWidth: 540 }}>
-            Nine questions. One honest grade for how your AI would hold up against an AI-native attack.
+            Nine questions. One honest grade on how your agents, models, and chatbots hold up.
           </p>
           <p className="sc-muted" style={{ fontSize: 15, margin: "0 0 34px" }}>
             Built by Virtue AI.
