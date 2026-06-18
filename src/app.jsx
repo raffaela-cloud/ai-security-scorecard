@@ -547,6 +547,13 @@ function Scorecard() {
   /* --------------------------- RESULT --------------------------- */
   const ranked = [...DIMS].sort((a, b) => result.scores[a.key] - result.scores[b.key]);
   const weakest = ranked.slice(0, 3);
+  // Dimensions where the respondent already scores strongly (>85). When present,
+  // the exposures section acknowledges their coverage before pivoting to the gaps.
+  const strong = DIMS.filter((d) => result.scores[d.key] > 85);
+  const fmtList = (a) =>
+    a.length <= 1 ? (a[0] || "") :
+    a.length === 2 ? `${a[0]} and ${a[1]}` :
+    `${a.slice(0, -1).join(", ")}, and ${a[a.length - 1]}`;
   const radarData = DIMS.map((d) => ({ dim: d.label, score: result.scores[d.key] }));
   const peerMedian = 56;
 
@@ -629,7 +636,12 @@ function Scorecard() {
               </div>
             </div>
 
-            <p className="sc-eyebrow" style={{ marginBottom: 14 }}>Your top exposures</p>
+            <p className="sc-eyebrow" style={{ marginBottom: strong.length ? 8 : 14 }}>Your top exposures</p>
+            {strong.length > 0 && (
+              <p style={{ fontSize: 15, margin: "0 0 16px", maxWidth: 620 }}>
+                You've built real breadth — {fmtList(strong.map((d) => d.label))} {strong.length > 1 ? "are" : "is"} already in strong shape. But AI-native threats evolve faster than any single control, and even a strong posture leaves openings. These are your highest-priority gaps right now:
+              </p>
+            )}
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
               {weakest.map((d, i) => {
                 const ex = EXPOSURES[d.key];
