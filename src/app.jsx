@@ -738,9 +738,15 @@ function Shell({ children, progress }) {
       <div style={{ padding: "32px 24px 40px" }}>{children}</div>
       <footer style={{ borderTop: "1px solid var(--line)", padding: "18px 24px 40px" }}>
         <div style={{ maxWidth: 760, margin: "0 auto", fontSize: 12, lineHeight: 1.6, color: "var(--muted)" }}>
-          This scorecard is an indicative self-assessment for educational purposes, based solely on the answers you provide.
-          It is not a security audit, certification, or guarantee of any security outcome. Benchmark figures shown are illustrative.
-          © Virtue AI. <a href="#privacy" style={{ color: "var(--accent)" }}>Privacy Policy</a>.
+          This scorecard is provided for general informational and educational purposes only. It is an automated,
+          indicative self-assessment generated solely from the answers you provide, and does not constitute an
+          official security diagnosis, audit, assessment, certification, or professional advice of any kind. It
+          creates no consulting, advisory, or other professional relationship. Any grades, scores, and benchmark
+          figures are illustrative and should not be relied upon for any security, compliance, or business decision.
+          Virtue AI makes no representation, warranty, or guarantee, express or implied, as to the accuracy or
+          completeness of these results or any security outcome, and disclaims all liability arising from their use
+          to the fullest extent permitted by law. © Virtue AI.{" "}
+          <a href="#privacy" style={{ color: "var(--accent)" }}>Privacy Policy</a>.
         </div>
       </footer>
     </div>
